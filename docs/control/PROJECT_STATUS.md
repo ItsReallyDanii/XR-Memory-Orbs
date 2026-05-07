@@ -12,6 +12,7 @@
 - ADB can launch `ProjectionActivity` with `contextLabel`.
 - `ProjectionActivity` reads one saved `MemoryOrb` from local Room data and displays it.
 - Android XR projected-activity scaffold is build-safe and phone/tablet fallback-safe. Local app UI renders and Room-backed persisted orb data survived after the XR scaffold. Real Android XR projected behavior is not yet validated and remains emulator/hardware-blocked.
+- Android XR projected-activity scaffold is build-safe and phone/tablet fallback-safe. XR emulator validation is currently environment-blocked on Windows ARM64 / Snapdragon X Elite because the required Android Emulator package and compatible AI-glasses emulator setup are not available locally. Validation should continue on supported Intel/AMD Windows, Linux x86_64, or macOS Apple Silicon hardware.
 
 ## What is proven
 
@@ -48,6 +49,7 @@
 - Local debugging and manual projection launching use ADB.
 - Observed physical device ID during testing: `R9PT601Z40D`.
 - Current prototype validation is local and developer-operated.
+- Current local development machine is Windows ARM64 on Snapdragon X Elite.
 
 ## Current build status
 
@@ -62,6 +64,7 @@
 - `ProjectionActivity` is currently `android:exported="true"` for debug/manual prototype launching and should be security-reviewed before publish.
 - `GlassesProjectionActivity` currently exists as projected-activity compatibility scaffolding only.
 - Compose emitted a deprecation warning for `Icons.Default.ArrowBack` in recall UI during an earlier build path. This is not a current blocker.
+- XR emulator validation is blocked locally because the Android Emulator package is unavailable, no `Sdk/emulator/emulator.exe` exists, and no phone host or AI-glasses AVD can be created from the current machine state.
 
 ## Current non-goals
 
@@ -76,9 +79,11 @@
 - Validate projected Android XR behavior on supported emulator or hardware.
 - Preserve the validated phone-first, Room-first architecture while keeping the local `ProjectionActivity` fallback intact.
 - Keep the XR scaffold narrow until projected runtime behavior is observed on supported XR runtime.
+- Move XR emulator validation to supported Intel/AMD Windows, Linux x86_64, or macOS Apple Silicon hardware if the local Windows ARM64 environment remains blocked.
 
 ## Validation language guardrails
 
 - `ProjectionActivity` is validated locally on a tablet, not on real glasses.
 - Full Google AI-glasses integration is not yet validated.
 - `GlassesProjectionActivity` is not real glasses validation.
+- XR emulator validation is not a MemoryOrbs app-code blocker at this stage; it is an environment availability blocker on the current Windows ARM64 machine.

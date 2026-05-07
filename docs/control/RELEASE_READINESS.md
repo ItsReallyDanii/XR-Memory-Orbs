@@ -11,6 +11,7 @@
 ## Milestone status
 
 - Android XR projected-activity scaffold is build-safe and phone/tablet fallback-safe. Local app UI renders and Room-backed persisted orb data survived after the XR scaffold. Real Android XR projected behavior is not yet validated and remains emulator/hardware-blocked.
+- Android XR projected-activity scaffold is build-safe and phone/tablet fallback-safe. XR emulator validation is currently environment-blocked on Windows ARM64 / Snapdragon X Elite because the required Android Emulator package and compatible AI-glasses emulator setup are not available locally. Validation should continue on supported Intel/AMD Windows, Linux x86_64, or macOS Apple Silicon hardware.
 
 ## Remaining release tasks
 
@@ -37,6 +38,7 @@
 - Release readiness is currently limited to build safety and local phone/tablet fallback safety.
 - `GlassesProjectionActivity` is compatibility scaffolding only.
 - Projected runtime behavior is not validated on XR emulator or hardware.
+- Local XR emulator validation is currently blocked by environment/tooling availability on Windows ARM64, not by a proven app-code failure.
 - Do not claim Android XR or AI-glasses validation from the current prototype state.
 - Do not claim real glasses support is complete.
 - Prototype completion is not publish readiness.
