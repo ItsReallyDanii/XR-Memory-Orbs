@@ -21,3 +21,4 @@
 | Empty state tests | Launch projection with missing orb or bad context label | Clear empty state displays | Validated | Read-only failure path |
 | Tablet limitations | Run full prototype on tablet | Works locally on tablet only | Validated | Not a glasses validation |
 | Real XR/glasses limitations | Attempt to claim XR/glasses support | Must not claim validated XR behavior | Not validated | Real Android XR projected behavior remains emulator/hardware-blocked |
+| XR emulator environment setup | Install Android Emulator package, phone host AVD, and AI-glasses AVD | Official AI-glasses emulator environment exists locally | Blocked | Environment-blocked on Windows ARM64 / Snapdragon X Elite |

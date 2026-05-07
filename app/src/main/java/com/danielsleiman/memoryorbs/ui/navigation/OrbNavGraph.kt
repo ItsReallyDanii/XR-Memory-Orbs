@@ -6,6 +6,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import android.net.Uri
+import com.danielsleiman.memoryorbs.ui.creation.CameraEntryScreen
 import com.danielsleiman.memoryorbs.ui.screens.OrbDetailScreen
 import com.danielsleiman.memoryorbs.ui.screens.OrbEditScreen
 import com.danielsleiman.memoryorbs.ui.screens.OrbListScreen
@@ -31,7 +33,7 @@ fun OrbNavGraph(
                     navController.navigate(Screen.Recall.route)
                 },
                 onAddOrbClick = {
-                    navController.navigate(Screen.OrbEdit.createRoute())
+                    navController.navigate(Screen.CameraEntry.route)
                 }
             )
         }
@@ -75,6 +77,33 @@ fun OrbNavGraph(
                 viewModel = viewModel,
                 onBack = { navController.popBackStack() },
                 onSave = { navController.popBackStack() }
+            )
+        }
+
+        // Camera-first creation entry point
+        composable(Screen.CameraEntry.route) {
+            CameraEntryScreen(
+                onBack = { navController.popBackStack() },
+                onPhotoCaptured = { imageUri ->
+                    navController.navigate(Screen.OrbEditWithPhoto.createRoute(imageUri))
+                }
+            )
+        }
+
+        // OrbEdit prefilled with captured photo from camera flow
+        composable(
+            route = Screen.OrbEditWithPhoto.route,
+            arguments = listOf(navArgument("imageUri") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val encodedUri = backStackEntry.arguments?.getString("imageUri") ?: ""
+            val imageUri = Uri.decode(encodedUri)
+
+            OrbEditScreen(
+                orbId = null,
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() },
+                onSave = { navController.popBackStack() },
+                prefillMediaUri = imageUri
             )
         }
     }
