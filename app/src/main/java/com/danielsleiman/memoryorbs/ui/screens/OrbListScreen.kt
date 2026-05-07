@@ -11,9 +11,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.danielsleiman.memoryorbs.GlassesProjectionActivity
 import com.danielsleiman.memoryorbs.data.model.MemoryOrb
 import com.danielsleiman.memoryorbs.ui.viewmodel.MemoryOrbViewModel
 
@@ -26,12 +28,23 @@ fun OrbListScreen(
     onAddOrbClick: () -> Unit
 ) {
     val orbs by viewModel.allOrbs.collectAsState()
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Memory Orbs") },
                 actions = {
+                    TextButton(
+                        onClick = {
+                            GlassesProjectionActivity.launchProjected(
+                                context = context,
+                                orbId = orbs.firstOrNull()?.id
+                            )
+                        }
+                    ) {
+                        Text("XR")
+                    }
                     IconButton(onClick = onRecallClick) {
                         Icon(Icons.Default.Search, contentDescription = "Recall")
                     }
